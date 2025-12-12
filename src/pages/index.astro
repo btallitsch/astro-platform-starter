@@ -1,19 +1,242 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Markdown from '../components/Markdown.astro';
 
-const explainer = `
-An Astro website can go way beyond static pages - on the right platform.
+const profile = {
+    name: 'Bill',
+    role: 'Hyundai Sales Consultant',
+    tagline: 'Straight answers, fast quotes, and a smooth delivery day.',
+    dealershipLine: 'New & Certified Pre-Owned Hyundai • Lease & finance guidance • Trade-in support',
+    phoneDisplay: '(555) 123-4567',
+    phoneHref: 'tel:+15551234567',
+    email: 'bill@example.com',
+    emailHref: 'mailto:bill@example.com'
+};
 
-Netlify supports not only [Streaming SSR](https://docs.astro.build/en/guides/server-side-rendering/#html-streaming) and fast [Edge Middleware](https://docs.astro.build/en/guides/middleware/), but also [on-demand revalidation](https://www.netlify.com/blog/cache-tags-and-purge-api-on-netlify/) and [stale-while-revalidate](https://www.netlify.com/blog/swr-and-fine-grained-cache-control/). 
-Any page or data can be rebuilt only when needed, without site visitors ever getting a performance hit.
-`;
+const highlights = [
+    { title: 'Quick quotes', description: 'Transparent pricing and clear next steps—no back-and-forth.' },
+    { title: 'Trade-in help', description: 'Market-informed trade estimates and payoff support.' },
+    { title: 'Lease vs. finance', description: 'Side-by-side comparisons tailored to mileage and budget.' },
+    { title: 'Remote delivery', description: 'Paperwork prep and delivery coordination when possible.' }
+];
+
+const models = [
+    { name: 'Elantra', note: 'Efficient daily driver with modern tech.' },
+    { name: 'Sonata', note: 'Comfort-forward midsize sedan option.' },
+    { name: 'Tucson', note: 'Popular compact SUV for families and commuters.' },
+    { name: 'Santa Fe', note: 'Roomy SUV with premium trims available.' },
+    { name: 'Palisade', note: 'Three-row SUV built for road trips.' },
+    { name: 'Kona', note: 'Small SUV with big value.' },
+    { name: 'IONIQ 5', note: 'EV-ready for quick charging and style.' },
+    { name: 'IONIQ 6', note: 'Sleek EV sedan with impressive range.' }
+];
+
+const testimonials = [
+    {
+        quote: 'Fast response, clear pricing, and everything was ready when we arrived.',
+        name: 'A. Customer',
+        meta: 'New vehicle purchase'
+    },
+    { quote: 'Trade-in was straightforward and the paperwork was painless.', name: 'J. Buyer', meta: 'Trade + finance' },
+    { quote: 'No pressure—just helpful options and a plan that fit the budget.', name: 'S. Driver', meta: 'Lease comparison' }
+];
 ---
 
-<Layout title="Welcome to Astro.">
-    <h1 class="mb-10">Netlify Platform Starter for Astro</h1>
-    <Markdown content={explainer} class="mb-10 text-lg" />
-    <p>
-        <a href="https://docs.netlify.com/frameworks/astro/" class="btn btn-lg sm:min-w-64">Read the Docs</a>
-    </p>
+<Layout
+    title={`Buy with ${profile.name} | Hyundai Sales Portfolio`}
+    description="Personal portfolio homepage for a Hyundai salesperson, featuring services, popular models, and contact details."
+>
+    <section class="py-6 sm:py-10">
+        <div class="grid items-center gap-10 sm:grid-cols-2">
+            <div>
+                <p class="text-sm tracking-wide text-white/70">{profile.role}</p>
+                <h1 class="mt-3">{`Buy with ${profile.name}`}</h1>
+                <p class="mt-4 text-lg text-white/85">{profile.tagline}</p>
+                <p class="mt-4 text-sm text-white/65">{profile.dealershipLine}</p>
+
+                <div class="flex flex-wrap gap-3 mt-7">
+                    <a href="/#contact" class="btn btn-lg">Get a quote</a>
+                    <a href="/#models" class="btn btn-lg" style="background: color-mix(in oklab, var(--color-gray-950) 35%, transparent); color: white;">
+                        Browse models
+                    </a>
+                </div>
+
+                <dl class="grid gap-4 mt-10 sm:grid-cols-2">
+                    {highlights.map((item) => (
+                        <div class="p-4 rounded-lg bg-white/5 ring-1 ring-white/10">
+                            <dt class="font-semibold">{item.title}</dt>
+                            <dd class="mt-1 text-sm text-white/70">{item.description}</dd>
+                        </div>
+                    ))}
+                </dl>
+            </div>
+
+            <div class="relative">
+                <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/30 to-white/5 blur-2xl" aria-hidden="true" />
+                <div class="relative p-8 rounded-2xl bg-white/5 ring-1 ring-white/10">
+                    <svg viewBox="0 0 520 340" class="w-full h-auto" aria-label="Illustration of a car">
+                        <defs>
+                            <linearGradient id="carGlow" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="rgba(246, 114, 128, 0.9)" />
+                                <stop offset="1" stop-color="rgba(255, 255, 255, 0.15)" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="20" y="20" width="480" height="300" rx="28" fill="rgba(255,255,255,0.06)" />
+                        <path
+                            d="M120 210c18-40 36-62 58-74 42-22 146-24 190 0 22 12 40 34 58 74l18 8c10 4 16 13 16 23v20c0 14-12 26-26 26h-26c-10 0-18-8-18-18v-12H166v12c0 10-8 18-18 18h-26c-14 0-26-12-26-26v-20c0-10 6-19 16-23l18-8z"
+                            fill="url(#carGlow)"
+                            opacity="0.95"
+                        />
+                        <path d="M178 146c38-14 126-14 164 0 10 4 20 14 30 30H148c10-16 20-26 30-30z" fill="rgba(255,255,255,0.22)" />
+                        <circle cx="170" cy="258" r="34" fill="rgba(255,255,255,0.15)" />
+                        <circle cx="170" cy="258" r="18" fill="rgba(0,0,0,0.22)" />
+                        <circle cx="350" cy="258" r="34" fill="rgba(255,255,255,0.15)" />
+                        <circle cx="350" cy="258" r="18" fill="rgba(0,0,0,0.22)" />
+                        <path d="M210 212h100" stroke="rgba(255,255,255,0.35)" stroke-width="10" stroke-linecap="round" />
+                    </svg>
+                    <div class="grid gap-3 mt-6 text-sm">
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="text-white/70">Response time</span>
+                            <span class="font-semibold">Same day (when possible)</span>
+                        </div>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="text-white/70">What’s included</span>
+                            <span class="font-semibold">Quote • Trade • Options</span>
+                        </div>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="text-white/70">Delivery day</span>
+                            <span class="font-semibold">Prepped & ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-12 scroll-mt-24 sm:py-16">
+        <div class="grid gap-8 sm:grid-cols-3">
+            <div class="sm:col-span-1">
+                <h2>About</h2>
+                <p class="mt-3 text-sm text-white/70">A sales approach focused on clarity, speed, and respect for time.</p>
+            </div>
+            <div class="sm:col-span-2">
+                <div class="p-6 rounded-xl bg-white/5 ring-1 ring-white/10">
+                    <p class="text-white/85">
+                        {profile.name} helps drivers compare trims, incentives, and payment options with a simple goal: make the decision
+                        easy and the delivery day smooth.
+                    </p>
+                    <ul class="grid gap-3 mt-6 text-sm text-white/75 sm:grid-cols-2">
+                        <li class="p-3 rounded bg-white/5">Clear out-the-door quotes</li>
+                        <li class="p-3 rounded bg-white/5">Options explained without jargon</li>
+                        <li class="p-3 rounded bg-white/5">Trade-in + payoff coordination</li>
+                        <li class="p-3 rounded bg-white/5">Delivery prep and walkthrough</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="models" class="py-12 scroll-mt-24 sm:py-16">
+        <div class="flex items-end justify-between gap-6">
+            <div>
+                <h2>Popular Hyundai Models</h2>
+                <p class="mt-3 text-sm text-white/70">
+                    Inventory changes daily. These are common starting points for quick recommendations.
+                </p>
+            </div>
+            <a href="/#contact" class="hidden sm:inline-flex btn">Ask for availability</a>
+        </div>
+
+        <div class="grid gap-4 mt-8 sm:grid-cols-2">
+            {models.map((model) => (
+                <div class="p-5 rounded-xl bg-white/5 ring-1 ring-white/10">
+                    <div class="flex items-center justify-between gap-4">
+                        <h3 class="text-lg font-semibold">{model.name}</h3>
+                        <span class="text-xs text-white/60">New • CPO</span>
+                    </div>
+                    <p class="mt-2 text-sm text-white/75">{model.note}</p>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <a href="/#contact" class="btn" style="--btn-py: 0.5rem; --btn-px: 0.75rem;">Get pricing</a>
+                        <a
+                            href="/#contact"
+                            class="btn"
+                            style="--btn-py: 0.5rem; --btn-px: 0.75rem; background: color-mix(in oklab, var(--color-gray-950) 35%, transparent); color: white;"
+                        >
+                            Compare trims
+                        </a>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </section>
+
+    <section id="process" class="py-12 scroll-mt-24 sm:py-16">
+        <h2>How the Purchase Works</h2>
+        <p class="mt-3 text-sm text-white/70">A simple process designed to keep decisions and paperwork moving.</p>
+
+        <div class="grid gap-4 mt-8 sm:grid-cols-3">
+            <div class="p-6 rounded-xl bg-white/5 ring-1 ring-white/10">
+                <p class="text-xs tracking-wide text-white/60">Step 1</p>
+                <h3 class="mt-2 text-lg font-semibold">Share the goal</h3>
+                <p class="mt-2 text-sm text-white/75">Model, budget, must-haves, and timeline.</p>
+            </div>
+            <div class="p-6 rounded-xl bg-white/5 ring-1 ring-white/10">
+                <p class="text-xs tracking-wide text-white/60">Step 2</p>
+                <h3 class="mt-2 text-lg font-semibold">Compare options</h3>
+                <p class="mt-2 text-sm text-white/75">Trim match, incentives, and lease vs. finance.</p>
+            </div>
+            <div class="p-6 rounded-xl bg-white/5 ring-1 ring-white/10">
+                <p class="text-xs tracking-wide text-white/60">Step 3</p>
+                <h3 class="mt-2 text-lg font-semibold">Delivery day</h3>
+                <p class="mt-2 text-sm text-white/75">Test drive, paperwork, walkthrough, and set up.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="py-12 scroll-mt-24 sm:py-16">
+        <h2>Client Notes</h2>
+        <p class="mt-3 text-sm text-white/70">Sample testimonials shown as placeholders until real reviews are added.</p>
+
+        <div class="grid gap-4 mt-8 sm:grid-cols-3">
+            {testimonials.map((t) => (
+                <figure class="p-6 rounded-xl bg-white/5 ring-1 ring-white/10">
+                    <blockquote class="text-sm text-white/80">“{t.quote}”</blockquote>
+                    <figcaption class="mt-4 text-xs text-white/60">
+                        <span class="font-semibold text-white/80">{t.name}</span> • {t.meta}
+                    </figcaption>
+                </figure>
+            ))}
+        </div>
+    </section>
+
+    <section id="contact" class="py-12 scroll-mt-24 sm:py-16">
+        <div class="grid gap-8 sm:grid-cols-3">
+            <div class="sm:col-span-1">
+                <h2>Contact</h2>
+                <p class="mt-3 text-sm text-white/70">
+                    Share a model (or a budget), a ZIP code for incentives, and whether there’s a trade-in.
+                </p>
+            </div>
+            <div class="sm:col-span-2">
+                <div class="p-6 rounded-xl bg-white/5 ring-1 ring-white/10">
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <a href={profile.phoneHref} class="p-4 rounded-lg bg-white/5 hover:bg-white/10 ring-1 ring-white/10 no-underline">
+                            <div class="text-xs text-white/60">Call / Text</div>
+                            <div class="mt-1 font-semibold">{profile.phoneDisplay}</div>
+                        </a>
+                        <a href={profile.emailHref} class="p-4 rounded-lg bg-white/5 hover:bg-white/10 ring-1 ring-white/10 no-underline">
+                            <div class="text-xs text-white/60">Email</div>
+                            <div class="mt-1 font-semibold">{profile.email}</div>
+                        </a>
+                    </div>
+
+                    <div class="p-4 mt-6 rounded-lg bg-white/5 ring-1 ring-white/10">
+                        <p class="text-sm text-white/75">
+                            This page uses placeholder contact info by default. Update the phone and email values in
+                            <code>src/pages/index.astro</code> to match real details.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </Layout>
